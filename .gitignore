@@ -1,0 +1,21 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+.venv/
+
+# Generated test report
+report.xml
+
+# Temporary and editor swap files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
