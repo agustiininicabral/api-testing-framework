@@ -34,8 +34,7 @@ def test_get_post_by_id(api_client, post_id):
     response = api_client.get(f"/posts/{post_id}")
 
     assert response.status_code == 200, (
-        f"Expected GET /posts/{post_id} to return HTTP 200, "
-        f"got {response.status_code}."
+        f"Expected GET /posts/{post_id} to return HTTP 200, got {response.status_code}."
     )
 
     assert_json_content_type(response.headers.get("Content-Type"))
