@@ -1,6 +1,11 @@
 import pytest
+import requests
 
-from tests.helpers import assert_json_content_type, assert_post_schema
+from tests.helpers import (
+    assert_json_content_type,
+    assert_post_schema,
+    parse_json_response,
+)
 
 
 pytestmark = pytest.mark.unit
@@ -87,3 +92,30 @@ def test_assert_post_schema_rejects_invalid_field_types(field, value):
 
     with pytest.raises(AssertionError):
         assert_post_schema(post)
+
+
+def make_response(body: bytes) -> requests.Response:
+    response = requests.Response()
+    response.status_code = 200
+    response.headers["Content-Type"] = "application/json"
+    response._content = body
+    response.encoding = "utf-8"
+    return response
+
+
+def test_parse_json_response_accepts_valid_json():
+    response = make_response(b'{"id": 1}')
+
+    assert parse_json_response(response) == {"id": 1}
+
+
+@pytest.mark.parametrize(
+    "body",
+    [b"", b"not-json", b'{"id":'],
+    ids=["empty-body", "plain-text", "truncated-json"],
+)
+def test_parse_json_response_rejects_invalid_json(body):
+    response = make_response(body)
+
+    with pytest.raises(AssertionError, match="valid JSON"):
+        parse_json_response(response)
