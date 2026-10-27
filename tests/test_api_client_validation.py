@@ -52,3 +52,31 @@ def test_client_rejects_empty_base_url(api_session):
             base_url="",
             session=api_session,
         )
+
+
+@pytest.mark.parametrize(
+    "timeout",
+    [0, -1, float("inf"), float("nan"), True, (1, 2, 3), (1, 0)],
+    ids=[
+        "zero",
+        "negative",
+        "infinite",
+        "nan",
+        "boolean",
+        "too-many-values",
+        "invalid-read-timeout",
+    ],
+)
+def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeout):
+    request_called = False
+
+    def fake_request(*_args, **_kwargs):
+        nonlocal request_called
+        request_called = True
+
+    monkeypatch.setattr(api_client.session, "request", fake_request)
+
+    with pytest.raises(ValueError):
+        api_client.get("/posts/1", timeout=timeout)
+
+    assert not request_called, "Invalid timeout must be rejected before sending a request."
