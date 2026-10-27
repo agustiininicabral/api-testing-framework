@@ -28,6 +28,15 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements-dev.txt
 
+      - name: Verify dependency consistency
+        run: python -m pip check
+
+      - name: Check Python formatting
+        run: ruff format --check src tests
+
+      - name: Run Ruff lint checks
+        run: ruff check src tests
+
       - name: Run unit tests
         run: python -m pytest -v -m unit --junitxml=unit-test-report.xml
 

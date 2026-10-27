@@ -4,7 +4,9 @@ import requests
 
 
 def assert_json_content_type(content_type: str | None) -> None:
-    assert content_type is not None, "Expected response to include a Content-Type header."
+    assert content_type is not None, (
+        "Expected response to include a Content-Type header."
+    )
 
     media_type = content_type.partition(";")[0].strip().lower()
     assert media_type == "application/json", (

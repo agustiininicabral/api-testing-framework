@@ -67,6 +67,13 @@ Run the complete suite (unit and integration tests; requires network access):
 .\.venv\Scripts\python.exe -m pytest -v
 ```
 
+Check Python formatting and run Ruff lint checks locally:
+
+```powershell
+.\.venv\Scripts\ruff.exe format --check src tests
+.\.venv\Scripts\ruff.exe check src tests
+```
+
 Run one test module:
 
 ```powershell

@@ -9,8 +9,7 @@ def test_get_nonexistent_post(api_client):
     response = api_client.get(f"/posts/{post_id}")
 
     assert response.status_code == 404, (
-        f"Expected GET /posts/{post_id} to return HTTP 404, "
-        f"got {response.status_code}."
+        f"Expected GET /posts/{post_id} to return HTTP 404, got {response.status_code}."
     )
 
 

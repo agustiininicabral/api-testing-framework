@@ -87,9 +87,7 @@ class APIClient:
                 **kwargs,
             )
         except requests.Timeout as error:
-            raise APIClientTimeoutError(
-                f"{method.upper()} {url} timed out."
-            ) from error
+            raise APIClientTimeoutError(f"{method.upper()} {url} timed out.") from error
         except requests.ConnectionError as error:
             raise APIClientConnectionError(
                 f"Unable to connect for {method.upper()} {url}."
