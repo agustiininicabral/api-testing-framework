@@ -8,7 +8,9 @@ def test_get_nonexistent_post(api_client):
     post_id = 99999
     response = api_client.get(f"/posts/{post_id}")
 
-    assert response.status_code == 404, f"Expected GET /posts/{post_id} to return HTTP 404, got {response.status_code}."
+    assert response.status_code == 404, (
+        f"Expected GET /posts/{post_id} to return HTTP 404, got {response.status_code}."
+    )
 
 
 @pytest.mark.parametrize(
