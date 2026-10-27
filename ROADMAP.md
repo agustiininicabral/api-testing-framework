@@ -23,14 +23,14 @@ This roadmap defines the completion criteria for the API Testing Framework. Work
 - [x] Ensure CI installs pinned dependencies and runs all offline tests on pushes and pull requests; add pip caching and a downloadable JUnit report.
 - [x] Add a separate manually triggered and weekly integration workflow against the public demo API, accounting for external outages and rate limits.
 - [x] Publish JUnit test reports as short-lived workflow artifacts and keep secrets out of logs.
-- [ ] Finish validating Ruff formatting/lint checks and `pip check`; no separate type checker or security scanner is planned for this small test-only client unless future complexity justifies it.
+- [x] Validate Ruff formatting/lint checks and `pip check`; no separate type checker or security scanner is planned for this small test-only client unless future complexity justifies it.
 
 ## Milestone 5 — Documentation and release readiness
 - [x] Align README instructions with actual test markers and CI behavior.
 - [x] Document configuration, expected behavior, limitations, and reproducible commands.
 - [x] Review `.gitignore`, dependency pins, MIT license, and repository metadata.
-- [ ] Run the complete feasible validation matrix and review the final Git diff.
-- [ ] Publish a final status report listing verified checks, known limitations, and follow-up work.
+- [x] Run the feasible validation matrix and review the final diff: unit tests, formatting, lint, dependency consistency, and real API integration tests passed.
+- [x] Publish a final status report listing verified checks, known limitations, and follow-up work.
 
 ## Completion rules
 - Do not claim tests passed unless a test runner or CI result confirms it.
