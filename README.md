@@ -109,6 +109,10 @@ against the configured public API. Because it depends on an external service,
 its result is kept separate from the offline unit-test gate. See
 [`.github/workflows/integration.yml`](.github/workflows/integration.yml).
 
+## API client behavior
+
+`APIClient` is a transport layer. It returns `requests.Response` objects unchanged, including HTTP 4xx and 5xx responses; callers and endpoint tests decide which status codes are expected. It validates absolute HTTP/HTTPS base URLs, accepts an optional path prefix, and rejects query strings and fragments in the base URL. Requests use finite positive timeouts by default. Timeout and connection failures are wrapped in project-specific exceptions while preserving the original exception as the cause.
+
 ## What the framework validates
 
 The current tests check selected endpoint responses: HTTP status codes,
