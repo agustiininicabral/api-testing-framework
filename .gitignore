@@ -6,8 +6,10 @@ __pycache__/
 # Virtual environments
 .venv/
 
-# Generated test report
+# Generated test reports
 report.xml
+unit-test-report.xml
+integration-report.xml
 
 # Temporary and editor swap files
 *.tmp
