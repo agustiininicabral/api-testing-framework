@@ -1,4 +1,4 @@
-from unittest.mock import Mock
+﻿from unittest.mock import Mock
 
 import pytest
 
@@ -109,3 +109,22 @@ def test_request_forwards_query_params_and_headers(api_client, monkeypatch):
     assert captured["params"] == params
     assert captured["headers"] == headers
     assert captured["method"] == "GET"
+
+@pytest.mark.parametrize("status_code", [400, 401, 404, 500])
+def test_get_returns_http_error_responses(
+    api_client,
+    monkeypatch,
+    status_code,
+):
+    response = Mock()
+    response.status_code = status_code
+
+    def fake_request(method, url, **kwargs):
+        return response
+
+    monkeypatch.setattr(api_client.session, "request", fake_request)
+
+    result = api_client.get("/posts/1")
+
+    assert result is response
+    assert result.status_code == status_code
