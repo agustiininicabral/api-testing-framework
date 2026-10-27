@@ -43,8 +43,9 @@ Set it for the current PowerShell session with:
 $env:API_BASE_URL = "https://jsonplaceholder.typicode.com"
 ```
 
-The value must be an absolute HTTP or HTTPS URL without a query or fragment.
-A version prefix such as `/api/v1` is allowed; do not include a specific endpoint
+The value must be an absolute HTTP or HTTPS URL with a valid port, without embedded
+credentials, a query, or a fragment. A version prefix such as `/api/v1` is allowed;
+do not include a specific endpoint
 such as `/posts`. Trailing slashes are removed by the client.
 
 ## Running tests
