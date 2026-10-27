@@ -85,7 +85,6 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
 @pytest.mark.parametrize(
     "base_url",
     [
-        "   ",
         "example.com",
         "ftp://example.com",
         "https://",
@@ -93,7 +92,6 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
         "https://example.com#fragment",
     ],
     ids=[
-        "whitespace",
         "missing-scheme",
         "unsupported-scheme",
         "missing-host",
@@ -104,3 +102,17 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
 def test_client_rejects_invalid_base_url(api_session, base_url):
     with pytest.raises(ValueError, match="absolute HTTP or HTTPS URL"):
         APIClient(base_url=base_url, session=api_session)
+
+
+def test_client_rejects_whitespace_base_url(api_session):
+    with pytest.raises(ValueError, match="must not be empty"):
+        APIClient(base_url="   ", session=api_session)
+
+
+def test_client_accepts_base_url_path_prefix(api_session):
+    client = APIClient(
+        base_url="https://example.com/api/",
+        session=api_session,
+    )
+
+    assert client.base_url == "https://example.com/api"
