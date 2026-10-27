@@ -1,3 +1,8 @@
+from typing import Any
+
+import requests
+
+
 def assert_json_content_type(content_type: str | None) -> None:
     assert content_type is not None, "Expected response to include a Content-Type header."
 
@@ -5,6 +10,16 @@ def assert_json_content_type(content_type: str | None) -> None:
     assert media_type == "application/json", (
         f"Expected Content-Type to be application/json, got {content_type!r}."
     )
+
+
+def parse_json_response(response: requests.Response) -> Any:
+    try:
+        return response.json()
+    except requests.exceptions.JSONDecodeError as error:
+        raise AssertionError(
+            "Expected response body to contain valid JSON, "
+            f"got HTTP {response.status_code}."
+        ) from error
 
 
 def assert_post_schema(post: object) -> None:

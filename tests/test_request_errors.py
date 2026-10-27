@@ -54,3 +54,21 @@ def test_connection_error_propagates(
         match="Unable to connect",
     ):
         api_client.get("/posts/1")
+
+
+def test_connection_error_preserves_original_cause(
+    api_client,
+    api_session,
+    monkeypatch,
+):
+    original_error = requests.exceptions.ConnectionError("Original connection failure.")
+
+    def raise_connection_error(_request, **_kwargs):
+        raise original_error
+
+    monkeypatch.setattr(api_session, "send", raise_connection_error)
+
+    with pytest.raises(APIClientConnectionError) as error:
+        api_client.get("/posts/1")
+
+    assert error.value.__cause__ is original_error

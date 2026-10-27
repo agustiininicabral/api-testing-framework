@@ -43,8 +43,9 @@ Set it for the current PowerShell session with:
 $env:API_BASE_URL = "https://jsonplaceholder.typicode.com"
 ```
 
-The value should be a base URL without a trailing path such as `/posts`. A
-trailing slash is removed by the test fixture.
+The value must be an absolute HTTP or HTTPS URL without a query or fragment.
+A version prefix such as `/api/v1` is allowed; do not include a specific endpoint
+such as `/posts`. Trailing slashes are removed by the client.
 
 ## Running tests
 
@@ -102,7 +103,15 @@ errors in integration tests are not suppressed or retried automatically.
 
 GitHub Actions runs the offline unit tests on each push and when pull requests
 are opened, synchronized, or reopened. The workflow is defined in
-[`.github/workflows/tests.yml`](.github/workflows/tests.yml).
+[`.github/workflows/tests.yml`](.github/workflows/tests.yml). A separate integration
+workflow runs on pushes to `main`, can be run manually, and also runs weekly
+against the configured public API. Because it depends on an external service,
+its result is kept separate from the offline unit-test gate. See
+[`.github/workflows/integration.yml`](.github/workflows/integration.yml).
+
+## API client behavior
+
+`APIClient` is a transport layer. It returns `requests.Response` objects unchanged, including HTTP 4xx and 5xx responses; callers and endpoint tests decide which status codes are expected. It validates absolute HTTP/HTTPS base URLs, accepts an optional path prefix, and rejects query strings and fragments in the base URL. Requests use finite positive timeouts by default. Timeout and connection failures are wrapped in project-specific exceptions while preserving the original exception as the cause. Endpoint tests use `parse_json_response` so empty or malformed JSON bodies fail with an explicit assertion message rather than an uncontextualized decoder error.
 
 ## What the framework validates
 

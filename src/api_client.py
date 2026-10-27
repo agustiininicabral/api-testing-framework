@@ -1,5 +1,6 @@
 import math
 from typing import Any
+from urllib.parse import urlsplit
 
 import requests
 
@@ -38,9 +39,28 @@ class APIClient:
         session: requests.Session,
         timeout: Timeout = DEFAULT_REQUEST_TIMEOUT,
     ) -> None:
-        normalized_base_url = base_url.rstrip("/")
+        normalized_base_url = base_url.strip().rstrip("/")
         if not normalized_base_url:
             raise ValueError("The API base URL must not be empty.")
+
+        try:
+            parsed_base_url = urlsplit(normalized_base_url)
+        except ValueError as error:
+            raise ValueError(
+                "The API base URL must be an absolute HTTP or HTTPS URL."
+            ) from error
+
+        if (
+            parsed_base_url.scheme not in {"http", "https"}
+            or not parsed_base_url.hostname
+            or parsed_base_url.query
+            or parsed_base_url.fragment
+        ):
+            raise ValueError(
+                "The API base URL must be an absolute HTTP or HTTPS URL "
+                "without a query or fragment."
+            )
+
         _validate_timeout(timeout)
 
         self.base_url = normalized_base_url

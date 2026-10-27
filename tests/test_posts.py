@@ -1,6 +1,10 @@
 import pytest
 
-from tests.helpers import assert_json_content_type, assert_post_schema
+from tests.helpers import (
+    assert_json_content_type,
+    assert_post_schema,
+    parse_json_response,
+)
 
 
 pytestmark = pytest.mark.integration
@@ -14,7 +18,7 @@ def test_get_all_posts(api_client):
     )
 
     assert_json_content_type(response.headers.get("Content-Type"))
-    posts = response.json()
+    posts = parse_json_response(response)
     assert isinstance(posts, list), "Expected GET /posts to return a JSON list."
     assert posts, "Expected GET /posts to return a non-empty list."
 
@@ -35,7 +39,7 @@ def test_get_post_by_id(api_client, post_id):
     )
 
     assert_json_content_type(response.headers.get("Content-Type"))
-    post = response.json()
+    post = parse_json_response(response)
     assert_post_schema(post)
     assert post["id"] == post_id, (
         f"Expected response post ID to be {post_id}, got {post['id']}."

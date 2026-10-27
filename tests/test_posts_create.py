@@ -1,6 +1,10 @@
 import pytest
 
-from tests.helpers import assert_json_content_type, assert_post_schema
+from tests.helpers import (
+    assert_json_content_type,
+    assert_post_schema,
+    parse_json_response,
+)
 
 
 pytestmark = pytest.mark.integration
@@ -20,7 +24,7 @@ def test_create_post(api_client):
     )
 
     assert_json_content_type(response.headers.get("Content-Type"))
-    created_post = response.json()
+    created_post = parse_json_response(response)
     assert_post_schema(created_post)
     assert created_post["userId"] == post_data["userId"], (
         "Expected the response userId to match the submitted userId."
