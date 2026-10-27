@@ -45,6 +45,7 @@ class APIClient:
 
         try:
             parsed_base_url = urlsplit(normalized_base_url)
+            _ = parsed_base_url.port
         except ValueError as error:
             raise ValueError(
                 "The API base URL must be an absolute HTTP or HTTPS URL."
@@ -53,12 +54,14 @@ class APIClient:
         if (
             parsed_base_url.scheme not in {"http", "https"}
             or not parsed_base_url.hostname
+            or parsed_base_url.username is not None
+            or parsed_base_url.password is not None
             or parsed_base_url.query
             or parsed_base_url.fragment
         ):
             raise ValueError(
                 "The API base URL must be an absolute HTTP or HTTPS URL "
-                "without a query or fragment."
+                "without credentials, a query, or a fragment."
             )
 
         _validate_timeout(timeout)
