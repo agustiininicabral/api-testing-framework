@@ -80,3 +80,29 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
         api_client.get("/posts/1", timeout=timeout)
 
     assert not request_called, "Invalid timeout must be rejected before sending a request."
+
+
+@pytest.mark.parametrize(
+    "base_url",
+    [
+        "   ",
+        "example.com",
+        "ftp://example.com",
+        "https://",
+        "https://example.com/path",
+        "https://example.com?query=1",
+        "https://example.com#fragment",
+    ],
+    ids=[
+        "whitespace",
+        "missing-scheme",
+        "unsupported-scheme",
+        "missing-host",
+        "contains-path",
+        "contains-query",
+        "contains-fragment",
+    ],
+)
+def test_client_rejects_invalid_base_url(api_session, base_url):
+    with pytest.raises(ValueError, match="absolute HTTP or HTTPS URL"):
+        APIClient(base_url=base_url, session=api_session)
