@@ -34,8 +34,7 @@ def test_request_timeout_errors_propagate(
     assert isinstance(error.value.__cause__, timeout_error)
     assert sent_kwargs["timeout"] == api_client.timeout
     assert all(
-        math.isfinite(timeout) and timeout > 0
-        for timeout in sent_kwargs["timeout"]
+        math.isfinite(timeout) and timeout > 0 for timeout in sent_kwargs["timeout"]
     ), "Expected connection and read timeouts to be finite and positive."
 
 
