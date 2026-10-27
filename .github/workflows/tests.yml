@@ -31,6 +31,9 @@ jobs:
       - name: Verify dependency consistency
         run: python -m pip check
 
+      - name: Check Python formatting
+        run: ruff format --check src tests
+
       - name: Run Ruff lint checks
         run: ruff check src tests
 
