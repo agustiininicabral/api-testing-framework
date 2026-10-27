@@ -3,9 +3,9 @@
 This roadmap defines the completion criteria for the API Testing Framework. Work should be delivered in small, reviewable changes, with CI evidence for each milestone. A milestone is not complete merely because code was written.
 
 ## Milestone 1 — Validation helpers and edge cases
-- [ ] Add unit tests for accepted and rejected JSON Content-Type values.
-- [ ] Test response schema validation for non-object values, missing fields, and invalid primitive types.
-- [ ] Run the unit suite in GitHub Actions and record the result.
+- [x] Add unit tests for accepted and rejected JSON Content-Type values.
+- [x] Test response schema validation for non-object values, missing fields, and invalid primitive types.
+- [x] Run the unit suite in GitHub Actions and record the result. The two latest runs for this branch completed successfully: [test changes](https://github.com/agustiininicabral/api-testing-framework/actions/runs/40443741251) and [roadmap commit](https://github.com/agustiininicabral/api-testing-framework/actions/runs/40443744292).
 
 ## Milestone 2 — API client behavior
 - [ ] Review URL/path normalization and timeout validation edge cases.
