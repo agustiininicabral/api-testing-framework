@@ -111,7 +111,7 @@ its result is kept separate from the offline unit-test gate. See
 
 ## API client behavior
 
-`APIClient` is a transport layer. It returns `requests.Response` objects unchanged, including HTTP 4xx and 5xx responses; callers and endpoint tests decide which status codes are expected. It validates absolute HTTP/HTTPS base URLs, accepts an optional path prefix, and rejects query strings and fragments in the base URL. Requests use finite positive timeouts by default. Timeout and connection failures are wrapped in project-specific exceptions while preserving the original exception as the cause.
+`APIClient` is a transport layer. It returns `requests.Response` objects unchanged, including HTTP 4xx and 5xx responses; callers and endpoint tests decide which status codes are expected. It validates absolute HTTP/HTTPS base URLs, accepts an optional path prefix, and rejects query strings and fragments in the base URL. Requests use finite positive timeouts by default. Timeout and connection failures are wrapped in project-specific exceptions while preserving the original exception as the cause. Endpoint tests use `parse_json_response` so empty or malformed JSON bodies fail with an explicit assertion message rather than an uncontextualized decoder error.
 
 ## What the framework validates
 
