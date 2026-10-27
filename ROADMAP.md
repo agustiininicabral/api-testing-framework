@@ -14,7 +14,7 @@ This roadmap defines the completion criteria for the API Testing Framework. Work
 - [x] Test request forwarding and supported methods without external network access.
 
 ## Milestone 3 — Integration coverage
-- [ ] Add deterministic tests for malformed JSON and empty response bodies using mocked responses where appropriate.
+- [x] Add deterministic tests for malformed JSON and empty response bodies using mocked responses; endpoint tests now use the shared parser helper.
 - [ ] Keep real API integration tests clearly separated from offline unit tests.
 - [ ] Validate positive, negative, response-shape, and create-response scenarios against the configured API.
 - [ ] Document external-service limitations and avoid claiming persistence for simulated writes.
