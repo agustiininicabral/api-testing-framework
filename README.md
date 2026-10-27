@@ -104,9 +104,10 @@ errors in integration tests are not suppressed or retried automatically.
 GitHub Actions runs the offline unit tests on each push and when pull requests
 are opened, synchronized, or reopened. The workflow is defined in
 [`.github/workflows/tests.yml`](.github/workflows/tests.yml). A separate integration
-workflow can be run manually or runs weekly against the configured public API.
-Because it depends on an external service, its result is kept separate from the
-offline unit-test gate. See [`.github/workflows/integration.yml`](.github/workflows/integration.yml).
+workflow runs on pushes to `main`, can be run manually, and also runs weekly
+against the configured public API. Because it depends on an external service,
+its result is kept separate from the offline unit-test gate. See
+[`.github/workflows/integration.yml`](.github/workflows/integration.yml).
 
 ## What the framework validates
 
