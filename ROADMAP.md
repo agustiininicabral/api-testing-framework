@@ -8,10 +8,10 @@ This roadmap defines the completion criteria for the API Testing Framework. Work
 - [x] Run the unit suite in GitHub Actions and record the result. The two latest runs for this branch completed successfully: [test changes](https://github.com/agustiininicabral/api-testing-framework/actions/runs/40443741251) and [roadmap commit](https://github.com/agustiininicabral/api-testing-framework/actions/runs/40443744292).
 
 ## Milestone 2 — API client behavior
-- [ ] Review URL/path normalization and timeout validation edge cases.
-- [ ] Verify timeout and connection exceptions preserve their original causes.
-- [ ] Decide and document whether HTTP error responses should be returned unchanged or raised as exceptions; test the chosen contract.
-- [ ] Test request forwarding and supported methods without external network access.
+- [x] Review URL/path normalization and timeout validation edge cases.
+- [x] Verify timeout and connection exceptions preserve their original causes.
+- [x] Decide and document whether HTTP error responses should be returned unchanged or raised as exceptions; test the chosen contract. The client returns HTTP error responses unchanged; endpoint tests own status-code assertions.
+- [x] Test request forwarding and supported methods without external network access.
 
 ## Milestone 3 — Integration coverage
 - [ ] Add deterministic tests for malformed JSON and empty response bodies using mocked responses where appropriate.
@@ -20,8 +20,8 @@ This roadmap defines the completion criteria for the API Testing Framework. Work
 - [ ] Document external-service limitations and avoid claiming persistence for simulated writes.
 
 ## Milestone 4 — CI and maintainability
-- [ ] Ensure CI installs pinned dependencies and runs all offline tests on pushes and pull requests.
-- [ ] Evaluate a separate integration job against the public demo API, accounting for external outages and rate limits.
+- [x] Ensure CI installs pinned dependencies and runs all offline tests on pushes and pull requests; add pip caching and a downloadable JUnit report.
+- [x] Add a separate manually triggered and weekly integration workflow against the public demo API, accounting for external outages and rate limits.
 - [ ] Add useful test reports and make failures diagnosable without exposing secrets.
 - [ ] Check formatting, linting, type checks, and dependency/security checks; adopt only tools that provide value for this small project.
 
