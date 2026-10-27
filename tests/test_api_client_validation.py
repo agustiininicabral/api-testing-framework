@@ -91,6 +91,9 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
         "https://",
         "https://example.com?query=1",
         "https://example.com#fragment",
+        "https://example.com:invalid",
+        "https://example.com:99999",
+        "https://user:password@example.com",
     ],
     ids=[
         "missing-scheme",
@@ -98,6 +101,9 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
         "missing-host",
         "contains-query",
         "contains-fragment",
+        "invalid-port",
+        "port-out-of-range",
+        "embedded-credentials",
     ],
 )
 def test_client_rejects_invalid_base_url(api_session, base_url):
