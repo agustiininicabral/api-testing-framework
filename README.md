@@ -70,7 +70,7 @@ Run the complete suite (unit and integration tests; requires network access):
 Run the Ruff lint checks locally:
 
 ```powershell
-.\\.venv\\Scripts\\ruff.exe check src tests
+.\.venv\Scripts\ruff.exe check src tests
 ```
 
 Run one test module:
