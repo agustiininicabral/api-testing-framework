@@ -1,4 +1,3 @@
-
 import pytest
 
 from src.api_client import APIClient
@@ -79,7 +78,9 @@ def test_request_rejects_invalid_timeout_override(api_client, monkeypatch, timeo
     with pytest.raises(ValueError):
         api_client.get("/posts/1", timeout=timeout)
 
-    assert not request_called, "Invalid timeout must be rejected before sending a request."
+    assert not request_called, (
+        "Invalid timeout must be rejected before sending a request."
+    )
 
 
 @pytest.mark.parametrize(
